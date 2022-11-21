@@ -1,0 +1,19 @@
+#Образ для градл
+image: gradle:alpine
+
+#image: maven:3.8-openjdk-11
+
+default:
+  tags:
+    - shelllocal
+
+Integration tests with Allure:
+  stage: test
+  script:
+    - ./gradlew clean test
+  after_script:
+    - ./gradlew allureReport
+  artifacts:
+    when: always
+    paths:
+      - build/reports/allure-report/allureReport/*
